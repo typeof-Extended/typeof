@@ -5,12 +5,13 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      username: ['Cliff', 'Jason', 'Mila'],
       password: '',
      };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.passer = this.passer.bind(this);
   }
 
   handleChange(event) {
@@ -22,15 +23,20 @@ class Login extends Component {
 
   // when server is set up we want this to sent a GET request
   handleSubmit(event) {
-    setState
-    console.log(this.state.username)
-    if (this.state.username !== 'Jason') {
-      alert('Wrong Username or Password'); 
-      event.preventDefault();
-    } else {
-      alert('Welcome ' + this.state.username);
-      event.preventDefault();
+    let arr = this.state.username;
+    let input = this.refs.input.value;
+
+    for (let i = 0; i < arr.length; i++) {
+      if (input === arr[i]) {
+        alert('Welcome ' + input); 
+        event.preventDefault();
+        return
+      } 
     }  
+    alert('Wrong username or password');
+  }
+  passer(event) {
+    this.props.code(this.refs.input.value);
   }
 
   render() {
@@ -44,7 +50,7 @@ class Login extends Component {
           <div>
           <label>
             Username:
-            <input type="text" value={this.state.username} onChange={this.handleChange} />
+            <input type="text" ref='input' onSubmit={this.handleSubmit} onChange={this.passer}/>
           </label>
           </div>
           <div>
@@ -53,7 +59,6 @@ class Login extends Component {
             <input type="password" value={this.state.password} onChange={this.handleChange} />
           </label>  
           </div>
-          <input type="submit" value="Login" />
         </form>
         <span>Don't have an account?</span>
         <span>
