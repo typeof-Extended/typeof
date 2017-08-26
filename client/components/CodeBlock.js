@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
 import ErrorCount from './ErrorCount';
-import Timer from './Timer';
+// import Timer from './Timer';
 
 const codeProblems = [["There is no spoon"], ["var repl = str.replace(/^\s+|\s+$|\s+(?=\s)/g, '')"], ["The answer is 42"], ["Codesmith"]];
 
 let i = 0;
 
-class CodeBlock extends Component {
-  constructor(props) {
-    super(props);
+class CodeBlock extends React.Component {
+  constructor() {
+    super();
     this.state = {
       code: ["Prepare Yourself"],
       textbox: [""],
       errors : 0,
+      time: {}, 
+      seconds: 20
     };
-  };
+    this.timer = 0;
+    this.startTimer = this.startTimer.bind(this);
+    this.countDown = this.countDown.bind(this);
+  }
 
   handleError = () => {
     let newError = this.state.errors;
@@ -43,21 +48,63 @@ class CodeBlock extends Component {
     };
   };
 
-  render(){
+  secondsToTime(secs){
+    let hours = Math.floor(secs / (60 * 60));
 
+    let divisor_for_minutes = secs % (60 * 60);
+    let minutes = Math.floor(divisor_for_minutes / 60);
+
+    let divisor_for_seconds = divisor_for_minutes % 60;
+    let seconds = Math.ceil(divisor_for_seconds);
+
+    let obj = {
+      "h": hours,
+      "m": minutes,
+      "s": seconds
+    };
+    return obj;
+  }
+
+  componentDidMount() {
+    let timeLeftVar = this.secondsToTime(this.state.seconds);
+    this.setState({ time: timeLeftVar });
+  }
+
+  startTimer() {
+    if (this.timer == 0) {
+      this.timer = setInterval(this.countDown, 1000);
+    }
+  }
+
+  countDown() {
+    // Remove one second, set state so a re-render happens.
+    let seconds = this.state.seconds - 1;
+    this.setState({
+      time: this.secondsToTime(seconds),
+      seconds: seconds,
+    });
+    
+    // Check if we're at zero.
+    if (seconds == 0) { 
+      clearInterval(this.timer);
+    }
+  }
+
+  render() {
     return (
       <div>
           <p><span id="correct">{this.state.textbox}</span>{this.state.code}</p>
         <form>
           <label id="input">
             User Input:
-            <input type="text" onChange={this.handleChange} ref="userinput"/>
+            <input type="text" onChange={this.handleChange} onKeyDown={this.startTimer} ref="userinput"/>
           </label>
         </form>
+        {this.state.time.m}:{this.state.time.s}
         <ErrorCount errors={this.state.errors}/>
       </div>
-          )
+    )
   };
-};
+}
 
 export default CodeBlock;
