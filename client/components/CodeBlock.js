@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ErrorCount from './ErrorCount';
 import Timer from './Timer';
 
-const codeProblems = [["Easy"], ["GET THE FUCK OUT OF HERE"], ["The answer is 42"], ["Codesmith"]];
+const codeProblems = [["There is no spoon"], ["var repl = str.replace(/^\s+|\s+$|\s+(?=\s)/g, '')"], ["The answer is 42"], ["Codesmith"]];
 
 let i = 0;
 
@@ -20,12 +20,11 @@ class CodeBlock extends Component {
     let newError = this.state.errors;
     newError++;
     this.setState({errors: newError});
-  }
+  };
 
   handleChange = (event) => {
     let typedCode = this.state.code;
     let userInput = this.refs.userinput.value;
-    console.log(this.refs.userinput.value);
     let newTextbox = this.state.textbox;
     if (typedCode[0].length == 1) {
       this.refs.userinput.value="";
@@ -50,7 +49,7 @@ class CodeBlock extends Component {
       <div>
           <p><span id="correct">{this.state.textbox}</span>{this.state.code}</p>
         <form>
-          <label>
+          <label id="input">
             User Input:
             <input type="text" onChange={this.handleChange} ref="userinput"/>
           </label>
