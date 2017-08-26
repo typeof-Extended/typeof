@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import CodeBlock from './CodeBlock';
 
 class App extends Component {
   render() {
     return (
       <div>
-        <p>SUPPP</p>
+        <CodeBlock/>
       </div>
     );
   }
