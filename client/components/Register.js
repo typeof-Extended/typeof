@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -7,7 +8,6 @@ class Register extends Component {
       name: '',
       username: '',
       password: '',
-      isLoggedIn: false
      };
 
     this.handleChange = this.handleChange.bind(this);
@@ -16,7 +16,6 @@ class Register extends Component {
 
   handleChange(event) {
     this.setState({
-      name: event.target.name,
       username: event.target.username,
       password: event.target.password
     });
@@ -24,28 +23,34 @@ class Register extends Component {
 
   // when server is set up we want this to sent a GET request
   handleSubmit(event) {
-    alert('A new user was submitted: ' + this.state.username);
+    alert('New menber was submitted: ' + this.state.username);
     event.preventDefault();
-    this.setState({isLoggedIn: true})
   }
 
   render() {
     return (
+      <div>
+      <div id="bander">
+       <h2>Register</h2>
+       </div>
+       <div>
         <form onSubmit={this.handleSubmit}>
-          <label>
-            Name:
-            <input type="text" value={this.state.name} onChange={this.handleChange} />
-          </label>
+          <div>
           <label>
             New Username:
             <input type="text" value={this.state.username} onChange={this.handleChange} />
           </label>
+          </div>
+          <div>
           <label>
            New Password:
-            <input type="text" value={this.state.password} onChange={this.handleChange} />
+            <input type="password" value={this.state.password} onChange={this.handleChange} />
           </label>  
+          </div>
           <input type="submit" value="Submit" />
         </form>
+       </div> 
+       </div> 
     );
   }
 

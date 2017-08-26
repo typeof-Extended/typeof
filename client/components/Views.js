@@ -6,7 +6,8 @@ class Views extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      active : 'Login'
+      active : 'Login',
+      isLoggedIn: false
     }
     this.handleClick = this.handleClick.bind(this);
   }

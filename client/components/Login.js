@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Register from './Register';
 
 class Login extends Component {
   constructor(props) {
@@ -6,7 +7,6 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
-      isLoggedIn: false
      };
 
     this.handleChange = this.handleChange.bind(this);
@@ -14,7 +14,7 @@ class Login extends Component {
   }
 
   handleChange(event) {
-    this.setState({
+    setState({
       username: event.target.username,
       password: event.target.password
     });
@@ -22,30 +22,44 @@ class Login extends Component {
 
   // when server is set up we want this to sent a GET request
   handleSubmit(event) {
-    alert('You are now logging in: ' + this.state.username);
-    event.preventDefault();
-    this.setState({isLoggedIn: true})
+    setState
+    console.log(this.state.username)
+    if (this.state.username !== 'Jason') {
+      alert('Wrong Username or Password'); 
+      event.preventDefault();
+    } else {
+      alert('Welcome ' + this.state.username);
+      event.preventDefault();
+    }  
   }
 
   render() {
     return (
+    <div>
+      <div id="bander">
+        <h2>Login</h2>
+      </div>  
       <div>
         <form onSubmit={this.handleSubmit}>
+          <div>
           <label>
             Username:
             <input type="text" value={this.state.username} onChange={this.handleChange} />
           </label>
+          </div>
+          <div>
           <label>
             Password:
-            <input type="text" value={this.state.password} onChange={this.handleChange} />
+            <input type="password" value={this.state.password} onChange={this.handleChange} />
           </label>  
+          </div>
           <input type="submit" value="Login" />
         </form>
         <span>Don't have an account?</span>
         <span>
-        
-        </span>  
-      </div>
+        </span>
+        </div>
+      </div>    
     );
   }
 }
