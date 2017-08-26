@@ -8,7 +8,7 @@ class App extends Component {
         <CodeBlock/>
       </div>
     );
-  }
-}
+  };
+};
 
 export default App;
