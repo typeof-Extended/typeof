@@ -33,6 +33,7 @@ class Views extends Component {
     }
   }
 
+  // clean up passing down of props
   render() {
     let active = this.state.active;
     let testPage = this.state.isLoggedIn;

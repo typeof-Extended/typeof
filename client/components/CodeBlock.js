@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import ErrorCount from './ErrorCount';
 // import Timer from './Timer';
 
+
+// TODO => move to database
 const codeProblems = [["There is no spoon"], ["var repl = str.replace(/^\s+|\s+$|\s+(?=\s)/g, '')"], ["The answer is 42"], ["Codesmith"]];
 
 let i = 0;
@@ -31,10 +33,10 @@ class CodeBlock extends React.Component {
     let typedCode = this.state.code;
     let userInput = this.refs.userinput.value;
     let newTextbox = this.state.textbox;
-    if (typedCode[0].length == 1) {
+    if (typedCode[0].length === 1) {
       this.refs.userinput.value="";
-      this.setState({code: codeProblems[i], textbox: [""], errors: 0}, () => {i++});
-    } else if (userInput == typedCode[0].charAt()) {
+      this.setState({code: codeProblems[i], textbox: [""], errors: 0}, () => i++);
+    } else if (userInput === typedCode[0].charAt()) {
       let correct = typedCode[0].substring(1);
       typedCode.shift();
       typedCode.push(correct);
