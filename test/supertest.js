@@ -2,10 +2,10 @@ const mocha = require('mocha');
 const request = require('supertest');
 const assert = require('chai').assert
 
+const app = require('../server/server.js');
+
 const PORT = process.env.PORT || 3000;
 const HOST = `http://localhost:${PORT}`;
-
-console.log('Start server before running npm test');
 
 describe('Home page route integration', () => {
   describe('/', () => {
