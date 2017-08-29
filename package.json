@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha",
+    "test": "node_modules/.bin/mocha --timeout 5000",
     "build": "node_modules/.bin/webpack-dev-server",
     "webpack": "node_modules/.bin/webpack -w",
     "start": "nodemon server/server.js"
