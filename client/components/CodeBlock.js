@@ -69,7 +69,6 @@ class CodeBlock extends React.Component {
     xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4 && xhr.status === 200) {
-        console.log('response: ', xhr.responseText);
         this.setState({allChallenges: JSON.parse(xhr.responseText)});
       }
     }
