@@ -4,7 +4,7 @@ let xhr = new XMLHttpRequest();
 
 
 // TODO => move to database
-const codeProblems = [["There is no spoon"], ["var repl = str.replace(/^\s+|\s+$|\s+(?=\s)/g, '')"], ["The answer is 42"], ["Codesmith"]];
+// const codeProblems = [["There is no spoon"], ["var repl = str.replace(/^\s+|\s+$|\s+(?=\s)/g, '')"], ["The answer is 42"], ["Codesmith"]];
 // move to state
 let i = 0;
 
@@ -66,9 +66,19 @@ class CodeBlock extends React.Component {
     return obj;
   }
 
-  componentDidMount() {
-    xhr.open
+  getStrings = (level) => {
+    xhr.open('POST', 'http://localhost:3000/getstrings');
+    xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        this.setState({currChallenge: xhr.responseText});
+      }
+    }
+    xhr.send(JSON.stringify({ level }));
+  }
 
+  componentDidMount() {
+    this.getStrings(1);
     let timeLeftVar = this.secondsToTime(this.state.seconds);
     this.setState({ time: timeLeftVar });
   }
@@ -95,6 +105,8 @@ class CodeBlock extends React.Component {
   }
 
   render() {
+
+    
     return (
       <div>
           <span id="correct">{this.state.textbox}</span><span>{this.state.currChallenge}</span>
