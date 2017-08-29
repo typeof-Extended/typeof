@@ -4,6 +4,9 @@ const path = require('path');
 const pg = require('pg');
 const bodyParser = require('body-parser');
 
+const verifyUser = require('./controllers/verifyUser.js')
+
+
 const stringController = require('./stringController/stringController.js');
 
 const conString = 'postgres://tjurqsrm:a3EMg4RiFXhLDz5mYScVBDvWlhKP-Ok7@babar.elephantsql.com:5432/tjurqsrm';
@@ -23,6 +26,7 @@ client.connect(function(err) {
 });
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.get('/', (req, res) => {
   res.status(200).sendFile(path.join(__dirname, '../index.html'));
@@ -31,6 +35,8 @@ app.get('/', (req, res) => {
 app.post('/getstring', stringController.getLevels, (req, res)=> {
   res.status(200).send(res.locals.level);
 });
+
+app.post('/login', verifyUser.authenticate)
 
 app.use('/dist', express.static('dist'));
 
