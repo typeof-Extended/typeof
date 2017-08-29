@@ -32,13 +32,14 @@ describe('Home page route integration', () => {
           });
       });
 
-    })
-  })
+    });
+  });
 });
 
 describe('Serve up challenge strings', () => {
   describe('/getstring', () => {
     describe('POST', () => {
+
       it('Responds with 200 and \'application/json\' content type', (done) => {
         request(HOST)
           .post('/getstring')
@@ -49,7 +50,8 @@ describe('Serve up challenge strings', () => {
             done();
           });
       });
-      it('Should take an object, and return an two dimensional array', (done) => {
+
+      it('Should take an object in request body, and return an two dimensional array', (done) => {
         request(HOST)
           .post('/getstring')
           .send({level: 1})
@@ -60,6 +62,39 @@ describe('Serve up challenge strings', () => {
           });
       });
 
+    });
+  });
+
+  describe('/login', () => {
+    describe('POST', () => {
+
+      it('Responds with 200 and \'application/json\' content type when user is verified', (done) => {
+        request(HOST)
+          .post('/login')
+          .send({
+            username: 'gian', 
+            password: 'testabc'})
+          .end((err, res) => {
+            assert(res.header['content-type'] === 'application/json; charset=utf-8', `Expect application/json; charset=utf-8 instead got ${res.header['content-type']}`);
+            assert(res.status === 200, `Expect 200 instead got ${res.status}`);
+            done();
+          });
+      });
+
+      it('Should user is verified, it should return user info', (done) => {
+        request(HOST)
+          .post('/login')
+          .send({
+            username: 'gian', 
+            password: 'testabc'})
+          .end((err, res) => {
+            console.log('This is the response body', typeof res.body[0]);
+            assert(typeof res.body[0] === 'object', `Expect \'object\', instead got ${typeof res.body[0]}`);
+            done();
+          });
+      });
+
     })
-  })
-})
+  });
+
+});
