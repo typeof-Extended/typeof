@@ -9,12 +9,15 @@ div {
 }
 
 span {
-  color: lightcoral;
+  color: black;
 }
 
 p {
-  color: blue;
   font-size: 50px;
+}
+
+#correct {
+  color: blue;
 }
 
 #error {
@@ -27,7 +30,7 @@ h1 {
 }
 
 #input {
-  margin-left: 2%''
+  margin-left: 2%;
 }
 #header {
   background-color:#5F5FDC; 

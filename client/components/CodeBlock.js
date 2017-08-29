@@ -3,9 +3,6 @@ import ErrorCount from './ErrorCount';
 let xhr = new XMLHttpRequest();
 
 
-// TODO => move to database
-// const codeProblems = [["There is no spoon"], ["var repl = str.replace(/^\s+|\s+$|\s+(?=\s)/g, '')"], ["The answer is 42"], ["Codesmith"]];
-// move to state
 let i = 0;
 
 class CodeBlock extends React.Component {
@@ -16,7 +13,8 @@ class CodeBlock extends React.Component {
       textbox: [""],
       errors : 0,
       time: {}, 
-      seconds: 20
+      seconds: 20,
+      allChallenges: []
     };
     this.timer = 0;
     this.startTimer = this.startTimer.bind(this);
@@ -29,13 +27,13 @@ class CodeBlock extends React.Component {
     this.setState({errors: newError});
   };
 
-  swapDivs = (event) => {
+  swapDivs = () => {
     let targetCode = this.state.currChallenge;
     let userInput = this.refs.userinput.value;
     let newTextbox = this.state.textbox;
     if (targetCode[0].length === 1) {
       this.refs.userinput.value = '';
-      this.setState({currChallenge: codeProblems[i], textbox: [""], errors: 0}, () => i++);
+      this.setState({currChallenge: this.state.allChallenges[i], textbox: [""], errors: 0}, () => i++);
     } else if (userInput === targetCode[0].charAt()) {
       let remaining = targetCode[0].substring(1);
       targetCode.shift();
@@ -67,11 +65,12 @@ class CodeBlock extends React.Component {
   }
 
   getStrings = (level) => {
-    xhr.open('POST', 'http://localhost:3000/getstrings');
+    xhr.open('POST', 'http://localhost:3000/getstring');
     xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4 && xhr.status === 200) {
-        this.setState({currChallenge: xhr.responseText});
+        console.log('response: ', xhr.responseText);
+        this.setState({allChallenges: JSON.parse(xhr.responseText)});
       }
     }
     xhr.send(JSON.stringify({ level }));
