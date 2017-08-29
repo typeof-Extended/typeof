@@ -88,7 +88,6 @@ describe('Serve up challenge strings', () => {
             username: 'gian', 
             password: 'testabc'})
           .end((err, res) => {
-            console.log('This is the response body', typeof res.body[0]);
             assert(typeof res.body[0] === 'object', `Expect \'object\', instead got ${typeof res.body[0]}`);
             done();
           });
