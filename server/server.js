@@ -35,6 +35,7 @@ app.post('/getstring', stringController.getLevels, (req, res)=> {
 });
 
 app.post('/login', verifyUser.authenticate)
+app.post('/createuser', verifyUser.createUser)
 
 app.use('/dist', express.static('dist'));
 
