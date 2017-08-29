@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const pg = require('pg');
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 
 const stringController = require('./stringController/stringController.js');
 
@@ -25,7 +25,7 @@ client.connect(function(err) {
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../index.html'));
+  res.status(200).sendFile(path.join(__dirname, '../index.html'));
 });
 
 app.post('/getstring', stringController.getLevels, (req, res)=> {
