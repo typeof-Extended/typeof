@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import Login from './Login.js';
-import Register from './Register';
 import Views from './Views';
 import CodeBlock from './CodeBlock';
 
