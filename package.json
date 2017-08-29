@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node_modules/.bin/mocha --timeout 5000",
     "build": "node_modules/.bin/webpack-dev-server",
     "webpack": "node_modules/.bin/webpack -w",
     "start": "nodemon server/server.js"
@@ -34,14 +34,17 @@
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.26.0",
     "body-parser": "^1.17.2",
+    "chai": "^4.1.1",
     "css-loader": "^0.28.5",
     "file-loader": "^0.11.2",
+    "mocha": "^3.5.0",
     "node-sass": "^4.5.3",
     "nodemon": "^1.11.0",
     "path": "^0.12.7",
     "pg": "^7.2.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
+    "supertest": "^3.0.0",
     "webpack": "^3.5.5",
     "webpack-dev-server": "^2.7.1"
   }
