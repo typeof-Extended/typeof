@@ -26,5 +26,18 @@ verifyUser.authenticate = (req, res) => {
 })
 };
 
+verifyUser.createUser = (req, res) => {
+  const text = 'INSERT INTO userinfo(username, password, email) VALUES($1, $2, $3) RETURNING *'
+  const values = [req.body.username, req.body.password, req.body.email]
+  client.query(text, values, function(err, result) {
+    if(err) {
+      return console.log('error running query', err);
+    }
+    res.status(200).send(result.rows)
+  })
+}
+
+  
+
 
 module.exports = verifyUser;
