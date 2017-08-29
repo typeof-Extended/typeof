@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import ErrorCount from './ErrorCount';
-// import Timer from './Timer';
+let xhr = new XMLHttpRequest();
 
 
 // TODO => move to database
 const codeProblems = [["There is no spoon"], ["var repl = str.replace(/^\s+|\s+$|\s+(?=\s)/g, '')"], ["The answer is 42"], ["Codesmith"]];
-
+// move to state
 let i = 0;
 
 class CodeBlock extends React.Component {
   constructor() {
     super();
     this.state = {
-      code: ["Prepare Yourself"],
+      currChallenge: ["Prepare Yourself"],
       textbox: [""],
       errors : 0,
       time: {}, 
@@ -23,30 +23,29 @@ class CodeBlock extends React.Component {
     this.countDown = this.countDown.bind(this);
   }
 
-  handleError = () => {
+  handleInputError = () => {
     let newError = this.state.errors;
     newError++;
     this.setState({errors: newError});
   };
 
-  handleChange = (event) => {
-    let typedCode = this.state.code;
+  swapDivs = (event) => {
+    let targetCode = this.state.currChallenge;
     let userInput = this.refs.userinput.value;
     let newTextbox = this.state.textbox;
-    if (typedCode[0].length === 1) {
-      this.refs.userinput.value="";
-      this.setState({code: codeProblems[i], textbox: [""], errors: 0}, () => i++);
-    } else if (userInput === typedCode[0].charAt()) {
-      let correct = typedCode[0].substring(1);
-      typedCode.shift();
-      typedCode.push(correct);
+    if (targetCode[0].length === 1) {
+      this.refs.userinput.value = '';
+      this.setState({currChallenge: codeProblems[i], textbox: [""], errors: 0}, () => i++);
+    } else if (userInput === targetCode[0].charAt()) {
+      let remaining = targetCode[0].substring(1);
+      targetCode.shift();
+      targetCode.push(remaining);
       newTextbox.push(userInput);
-      this.refs.userinput.value = "";
-      this.setState({code: typedCode, textbox: newTextbox});
+      this.refs.userinput.value = '';
+      this.setState({currChallenge: targetCode, textbox: newTextbox});
     } else {
-      alert("YOU WRONG!!!");
-      this.refs.userinput.value="";
-      this.handleError();
+      this.refs.userinput.value='';
+      this.handleInputError();
     };
   };
 
@@ -68,12 +67,14 @@ class CodeBlock extends React.Component {
   }
 
   componentDidMount() {
+    xhr.open
+
     let timeLeftVar = this.secondsToTime(this.state.seconds);
     this.setState({ time: timeLeftVar });
   }
 
   startTimer() {
-    if (this.timer == 0) {
+    if (this.timer === 0) {
       this.timer = setInterval(this.countDown, 1000);
     }
   }
@@ -86,8 +87,9 @@ class CodeBlock extends React.Component {
       seconds: seconds,
     });
     
-    // Check if we're at zero.
-    if (seconds == 0) { 
+  //   // Check if we're at zero.
+    if (seconds === 0) { 
+      alert('You lose!')
       clearInterval(this.timer);
     }
   }
@@ -95,11 +97,11 @@ class CodeBlock extends React.Component {
   render() {
     return (
       <div>
-          <p><span id="correct">{this.state.textbox}</span>{this.state.code}</p>
+          <span id="correct">{this.state.textbox}</span><span>{this.state.currChallenge}</span>
         <form>
           <label id="input">
             User Input:
-            <input type="text" onChange={this.handleChange} onKeyDown={this.startTimer} ref="userinput"/>
+            <input type="text" onChange={this.swapDivs} onKeyDown={this.startTimer} ref="userinput"/>
           </label>
         </form>
         {this.state.time.m}:{this.state.time.s}
@@ -107,6 +109,6 @@ class CodeBlock extends React.Component {
       </div>
     )
   };
-}
+} 
 
 export default CodeBlock;
