@@ -3,8 +3,7 @@ const path = require('path');
 module.exports = {
 entry: './client/index.js',
 output: {
-  path: path.join(__dirname, '/client'),
-  publicPath: '/client',
+  path: path.join(__dirname, '/dist'),
   filename: 'bundle.js'
 },
   module: {
@@ -20,7 +19,11 @@ output: {
       },
       {
         test: /\.scss$/,
-        loaders: ['style-loader', 'css-loader', 'sass-loader']
+        use: [
+          { loader: "style-loader" }, 
+          { loader: "css-loader" }, 
+          { loader: "sass-loader" }
+        ],
       },
     ]
   }
