@@ -1,9 +1,10 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-
 const pg = require('pg');
 const conString = 'postgres://tjurqsrm:a3EMg4RiFXhLDz5mYScVBDvWlhKP-Ok7@babar.elephantsql.com:5432/tjurqsrm';
+const verifyUser = require('../constrollers/verifyUser.js')
+
 
 const client = new pg.Client(conString);
 client.connect(function(err) {
@@ -22,6 +23,8 @@ client.connect(function(err) {
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html'));
 });
+
+app.post('/login', verifyUser)
 
 // app.get('/getstring', (req, res)=> {
 
