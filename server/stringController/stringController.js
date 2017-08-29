@@ -16,7 +16,6 @@ stringController.getLevels = (req, res, next) => {
       console.log(err)
       res.status(400).end();
     };
-    console.log('This is response rows:', response.rows);
     //Data is passed down via this res property
     res.locals.level = [];
 
