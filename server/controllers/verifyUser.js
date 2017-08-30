@@ -14,7 +14,6 @@ const verifyUser = {}
 
 verifyUser.authenticate = (req, res) => {
   client.query("SELECT * FROM userinfo WHERE username = '" + req.body.username + "'", function(err, result) {
-    console.log('this is results: ', result.rows)
     if(err) {
       return console.log('error running query', err);
     }
@@ -36,8 +35,14 @@ verifyUser.createUser = (req, res) => {
     res.status(200).send(result.rows)
   })
 }
-
   
-
+verifyUser.deleteUser = (req, res) => {
+  const text = 'DELETE FROM userinfo WHERE username = $1';
+  client.query(text, [req.body.username], function(err, result) {
+    if (err) res.status(400).end();
+    console.log('User deleted!');
+    res.status(200).end();
+  });
+};
 
 module.exports = verifyUser;

@@ -6,9 +6,8 @@ const bodyParser = require('body-parser');
 
 const verifyUser = require('./controllers/verifyUser.js')
 const record = require('./controllers/record.js')
-
-
-const stringController = require('./stringController/stringController.js');
+const stringController = require('./controllers/stringController.js');
+const statistics = require('.constrollers/statistics.js')
 
 const conString = 'postgres://tjurqsrm:a3EMg4RiFXhLDz5mYScVBDvWlhKP-Ok7@babar.elephantsql.com:5432/tjurqsrm';
 
@@ -30,18 +29,20 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../index.html'));
+  res.status(200).sendFile(path.join(__dirname, '../index.html'));
 });
 
-app.post('/getstring', stringController.getLevels, (req, res)=> {
+app.get('/getstring', stringController.getLevels, (req, res)=> {
   res.status(200).send(res.locals.level);
 });
 
 app.post('/login', verifyUser.authenticate)
 app.post('/createuser', verifyUser.createUser)
-app.post('/gamerecord', record.createRecord);
-
+app.post('/stats', statistics.gameStat)
+// app.post('/gamerecord', record.createRecord);
+app.post('/login', verifyUser.authenticate);
 app.use('/dist', express.static('dist'));
+
 
 const PORT = 3000;
 app.listen(PORT, () => {
