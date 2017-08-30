@@ -56,7 +56,7 @@ class Game extends React.Component {
     return (
       <div>{this.state.interimVisible ?
         <Interim beginLevel={this.beginLevel} level={this.state.level}/> :
-        <GameBoard nextLevel={this.nextLevel} allChallenges={this.state.allChallenges[this.state.level - 1]} currLevel={this.state.level} />} 
+        <GameBoard nextLevel={this.nextLevel} allChallenges={this.state.allChallenges[this.state.level - 1]} currLevel={this.state.level} changeView={this.props.changeView}/>} 
       </div>
     )
   };
