@@ -5,6 +5,7 @@ const pg = require('pg');
 const bodyParser = require('body-parser');
 
 const verifyUser = require('./controllers/verifyUser.js')
+const record = require('./controllers/record.js')
 
 
 const stringController = require('./stringController/stringController.js');
@@ -38,6 +39,7 @@ app.post('/getstring', stringController.getLevels, (req, res)=> {
 
 app.post('/login', verifyUser.authenticate)
 app.post('/createuser', verifyUser.createUser)
+app.post('/gamerecord', record.createRecord);
 
 app.use('/dist', express.static('dist'));
 
