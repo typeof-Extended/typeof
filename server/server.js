@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const verifyUser = require('./controllers/verifyUser.js')
 const record = require('./controllers/record.js')
 const stringController = require('./controllers/stringController.js');
-const statistics = require('.constrollers/statistics.js')
+const statistics = require('./controllers/statistics.js')
 
 const conString = 'postgres://tjurqsrm:a3EMg4RiFXhLDz5mYScVBDvWlhKP-Ok7@babar.elephantsql.com:5432/tjurqsrm';
 
