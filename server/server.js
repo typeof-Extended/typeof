@@ -30,12 +30,15 @@ app.get('/', (req, res) => {
   res.status(200).sendFile(path.join(__dirname, '../index.html'));
 });
 
-app.post('/getstring', stringController.getLevels, (req, res)=> {
+app.get('/getstring', stringController.getLevels, (req, res)=> {
   res.status(200).send(res.locals.level);
 });
 
-app.post('/login', verifyUser.authenticate)
-app.post('/createuser', verifyUser.createUser)
+app.post('/login', verifyUser.authenticate);
+
+app.post('/createuser', verifyUser.createUser);
+
+app.delete('/deleteuser', verifyUser.deleteUser);
 
 app.use('/dist', express.static('dist'));
 

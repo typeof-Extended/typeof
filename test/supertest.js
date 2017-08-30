@@ -45,6 +45,7 @@ describe('Serve up challenge strings', () => {
           .post('/getstring')
           .send({level: 1})
           .end((err, res) => {
+            if (err) done(err);
             assert(res.status === 200, `Expect 200, instead got ${res.status}`);
             assert(res.header['content-type'] === 'application/json; charset=utf-8', `Expect application/json; charset=utf-8 instead got ${res.header['content-type']}`);
             done();
@@ -56,18 +57,39 @@ describe('Serve up challenge strings', () => {
           .post('/getstring')
           .send({level: 1})
           .end((err, res) => {
+            if (err) done(err);
             assert(Array.isArray(res.body) === true, `Expect to return an array, instead got ${typeof res.body}`);
             assert(Array.isArray(res.body[0]) === true, `Expect the returned array to be a two dimensional array.`)
             done();
           });
       });
 
+      it('Responds string in the correct level', (done) => {
+        request(HOST)
+          .post('/getstring')
+          .send({level: 2})
+          .end((err, res) => {
+            if (err) done(err);
+            let elCheck = false
+            for (let x = 0; x < res.body.length; x++) {
+              if (res.body[x][0] === 'function myFunction(p1, p2) { return p1 * p2; }') {
+                elCheck = true;
+              }
+            }
+            assert(elCheck === true, 'Expect proper stringproblem level response');
+            done();
+          });
+      });
+
     });
   });
+  
+});
 
+describe('Sign in integration', () => {
   describe('/login', () => {
     describe('POST', () => {
-
+  
       it('Responds with 200 and \'application/json\' content type when user is verified', (done) => {
         request(HOST)
           .post('/login')
@@ -75,12 +97,13 @@ describe('Serve up challenge strings', () => {
             username: 'gian', 
             password: 'testabc'})
           .end((err, res) => {
+            if (err) done(err);
             assert(res.header['content-type'] === 'application/json; charset=utf-8', `Expect application/json; charset=utf-8 instead got ${res.header['content-type']}`);
             assert(res.status === 200, `Expect 200 instead got ${res.status}`);
             done();
           });
       });
-
+  
       it('Should user is verified, it should return user info', (done) => {
         request(HOST)
           .post('/login')
@@ -88,12 +111,12 @@ describe('Serve up challenge strings', () => {
             username: 'gian', 
             password: 'testabc'})
           .end((err, res) => {
+            if (err) done(err);
             assert(typeof res.body[0] === 'object', `Expect \'object\', instead got ${typeof res.body[0]}`);
             done();
           });
       });
-
-    })
+  
+    });
   });
-
 });
