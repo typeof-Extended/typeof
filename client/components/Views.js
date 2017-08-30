@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import CodeBlock from './CodeBlock.js';
+import Game from './Game.js';
 import Login from './Login.js';
 import Register from './Register.js';
+import Interim from './Interim.js';
+import UserProfile from './UserProfile.js';
 let xhr = new XMLHttpRequest();
 
 class Views extends Component {
@@ -50,7 +52,8 @@ class Views extends Component {
 
     if (this.state.view === 'login') return <Login login={this.login} changeView={this.changeView} />;
     else if (this.state.view === 'register') return <Register register={this.register} changeView={this.changeView} />;
-    else if (this.state.view === 'app') return <CodeBlock />;
+    else if (this.state.view === 'app') return <Game changeView={this.changeView}/>;
+    else if (this.state.view === 'profile') return <UserProfile />;
 
   }  
 }   
