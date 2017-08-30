@@ -41,6 +41,7 @@ app.post('/createuser', verifyUser.createUser);
 app.delete('/deleteuser', verifyUser.deleteUser);
 
 app.use('/dist', express.static('dist'));
+app.use('/', express.static('dist'));
 
 const PORT = 3000;
 app.listen(PORT, () => {
