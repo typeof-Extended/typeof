@@ -4,6 +4,7 @@ import Login from './Login.js';
 import Register from './Register.js';
 import Interim from './Interim.js';
 import UserProfile from './UserProfile.js';
+import Loser from './Loser.js';
 let xhr = new XMLHttpRequest();
 
 class Views extends Component {
@@ -54,6 +55,7 @@ class Views extends Component {
     else if (this.state.view === 'register') return <Register register={this.register} changeView={this.changeView} />;
     else if (this.state.view === 'app') return <Game changeView={this.changeView}/>;
     else if (this.state.view === 'profile') return <UserProfile />;
+    else if (this.state.view === 'loser') return <Loser changeView={this.changeView} />;
 
   }  
 }   
