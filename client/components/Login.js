@@ -6,11 +6,11 @@ class Login extends Component {
   render() {
 
     return (
-      <div>
+      <div className="login">
         <form onSubmit={(e) => this.props.login(e, this.refs)}>
-          Username:
-        <input id="username" placeholder="username" ref="username"></input><br />
-          Password:
+        <p>Username:</p>
+        <input id="username" type="text" placeholder="username" ref="username"></input>
+        <p>Password:</p>
         <input id="password" type="password" placeholder="password" ref="password"></input>
         <input type="submit" value="Login" ></input>
         </form>

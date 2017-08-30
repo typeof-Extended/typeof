@@ -1,19 +1,91 @@
-* {
-  margin: 0;
-  padding: 0;
+/**** Variables ****/
+//Fonts
+$primary-font: 'Black Ops One', cursive;
+$secondary-font: 'Share Tech Mono', monospace;
+
+//Colors
+$primary-font-color: #BFD8FD;
+$secondary-font-color: #1A1C37;
+
+/**** Mixins ****/
+@mixin absolute-center() {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-div {
-  white-space: pre-wrap;
-  margin-left: 10%;
+/**** Box size this shit ****/
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
-span {
-  color: black;
+/**** Universal Shared Style ****/
+body, button, input, a, span {
+  font-family: $secondary-font;
+  color: $primary-font-color;
 }
 
-p {
-  font-size: 50px;
+input[type="password"], input[type="text"], input[type="submit"], button {
+  padding: 10px 15px;
+  background-color: #F4F4F4;
+  border: none;
+}
+
+// #bander {
+//   background-color: #5F5FDC;
+//   color: white;
+//   margin-bottom: 10%;
+// }
+
+/**** Header Style ****/
+header h1 {
+  text-align: center;
+  padding: 8%;
+  font-size: 2.4rem;
+}
+
+/**** Canvas Style ****/
+
+canvas {
+  z-index: -100000;
+  position: absolute;
+  top: 0;
+}
+
+/**** Login & Register Page Style ****/
+.login, .register {
+  @include absolute-center();
+  top: 30%;
+  width: 500px;
+  height: auto;
+  padding: 3% 2.5%;
+  background-image: url("../assets/login-panel-01.png");
+  background-size: 100% 100%;
+}
+.login p, .register p {
+  font-size: 1.0rem;
+  text-align: left;
+  margin-bottom: 0.5rem;
+}
+.login input, .login button, .register input, .register button {
+  display: block;
+  margin-bottom: 1.0rem;
+  color: $secondary-font-color;
+  background-color: #F2F8FF
+}
+
+/**** GameBored AF Page Style ****/
+.game-board {
+  @include absolute-center();
+  top: 30%;
+  width: 500px;
+  height: auto;
+  background-color: green;
 }
 
 #correct {
@@ -23,37 +95,4 @@ p {
 #error {
   color: red;
   font-size:20px;
-}
-
-h1 {
-  margin-left: 35%;
-}
-
-#input {
-  margin-left: 2%;
-}
-#header {
-  background-color:#5F5FDC; 
-  color: white;
-  
-  
-  padding-left: 10px; 
-  padding-right: 5px;
-  width: 100%;
-  }
-
-#content {
-  text-align: center;
-  margin-top: 10%;
-  margin-left: 40%; 
-  float: center;
-  width: 25%;
-  height: 25%;
-  background-color:tan; 
-}
-
-#bander {
-  background-color: #5F5FDC;
-  color: white;
-  margin-bottom: 10%;
 }

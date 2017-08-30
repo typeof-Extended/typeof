@@ -93,11 +93,11 @@ class GameBoard extends Component {
 
     return (
 
-      <div>
-        <span id="correct">{this.state.textbox}</span><span>{this.state.currChallenge}</span><br />
-        User Input:
+      <div className="game-board">
+        <span id="correct">{this.state.textbox}</span>
+        <span>{this.state.currChallenge}</span>
+        <p>User Input:</p>
         <input id="input" type="text" onChange={() => this.swapDivs()} onKeyDown={this.startTimer} ref="userinput" />
-        <br />
         {/* {this.state.time.m}:{this.state.time.s} */}
         <ErrorCount errors={this.state.errors}/>
       </div>
