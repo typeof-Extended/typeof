@@ -17,7 +17,7 @@ statistics.gameStat = (req, res) => {
 const text = 'INSERT INTO performnce(gameid, userid, level, string1, string2, string3, string4, string5, accuracy) VALUES ($1, $2, $3, $4, $5, $6, %7, $8, $9)'
 // value locations in request body
 const values = [req.body.gameid, req.body.userid, req.body.level, 
-                req.body.string1, req.body.string, req.body.string3, 
+                req.body.string1, req.body.string2, req.body.string3, 
                 req.body.string4, req.body.string5, req.body.accuracy
                ];
 
