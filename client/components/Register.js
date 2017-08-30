@@ -12,7 +12,6 @@ class Register extends Component {
 
 
   render() {
-    console.log(this.state);
     return (
       <div>
         <form onSubmit={(e) => this.checkPass(e)}>
