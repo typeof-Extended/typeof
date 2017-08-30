@@ -119,5 +119,4 @@ describe('Sign in integration', () => {
   
     });
   });
-  
 });
