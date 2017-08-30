@@ -5,12 +5,20 @@ class Counter extends Component {
   constructor() {
     super();
     this.state = {
-      seconds: 5,
+      seconds: 30,
       timer: 0
     };
   }
 
-  countDown = () => {
+  updateSeconds = () => {
+    if (this.props.addTime) {
+      this.props.updateFlag();
+      this.setState({seconds: this.state.seconds + 5});
+    }
+    if (this.props.subTime) {
+      this.props.updateFlag();
+      this.setState({seconds: this.state.seconds - 2});
+    }
     let seconds = this.state.seconds - 1;
     this.setState({
       seconds: seconds,
@@ -22,7 +30,7 @@ class Counter extends Component {
   }
 
   componentDidMount = () => {
-    this.state.timer = setInterval(this.countDown, 1000);
+    this.state.timer = setInterval(this.updateSeconds, 1000);
   }
 
 

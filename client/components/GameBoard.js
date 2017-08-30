@@ -14,6 +14,8 @@ class GameBoard extends Component {
       challengeCounter: 0,
       allChallenges: [],
       textbox: [""],
+      addTime: false,
+      subTime: false
     }
   }
 
@@ -33,7 +35,8 @@ class GameBoard extends Component {
         challengeCounter: this.state.challengeCounter + 1,
         currChallenge: this.props.allChallenges[this.state.challengeCounter],
         textbox: [""],
-        errors: 0
+        errors: 0,
+        addTime: true
       });
       if (this.state.challengeCounter % 5 === 0 && this.state.challengeCounter > 0) this.props.nextLevel();
     } else if (userInput === targetCode[0].charAt()) {
@@ -44,11 +47,15 @@ class GameBoard extends Component {
       this.refs.userinput.value = '';
       this.setState({ currChallenge: targetCode, textbox: newTextbox });
     } else {
+      this.setState({subTime: true});
       this.refs.userinput.value = '';
       this.handleInputError();
     };
   };
 
+  updateFlag = () => {
+    this.setState({addTime: false, subTime: false})
+  }
 
   render() {
 
@@ -57,7 +64,7 @@ class GameBoard extends Component {
         <span id="correct">{this.state.textbox}</span><span>{this.state.currChallenge}</span>
         <p>User Input:</p>
         <input id="input" type="text" onChange={() => this.swapDivs()} onKeyDown={this.startTimer} ref="userinput" />
-        <Counter changeView={this.props.changeView} />
+        <Counter changeView={this.props.changeView} addTime={this.state.addTime} subTime={this.state.subTime} updateFlag={this.updateFlag}/>
         <ErrorCount errors={this.state.errors}/>
       </div>
     );
