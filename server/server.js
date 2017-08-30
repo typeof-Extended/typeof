@@ -42,6 +42,7 @@ app.post('/stats', statistics.gameStat)
 // app.post('/gamerecord', record.createRecord);
 app.post('/login', verifyUser.authenticate);
 app.use('/dist', express.static('dist'));
+app.use('/', express.static('dist'));
 
 
 const PORT = 3000;

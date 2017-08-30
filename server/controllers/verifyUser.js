@@ -39,9 +39,8 @@ verifyUser.createUser = (req, res) => {
 verifyUser.deleteUser = (req, res) => {
   const text = 'DELETE FROM userinfo WHERE username = $1';
   client.query(text, [req.body.username], function(err, result) {
-    if (err) res.status(400).end();
-    console.log('User deleted!');
-    res.status(200).end();
+    if (err) res.status(400).end(err);
+    res.status(200).send(result.rows);
   });
 };
 

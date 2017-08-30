@@ -18,11 +18,19 @@ output: {
         }
       },
       {
-        test: /\.scss$/,
+        test: /\.(css|scss)$/,
         use: [
           { loader: "style-loader" }, 
           { loader: "css-loader" }, 
           { loader: "sass-loader" }
+        ],
+      },
+      {
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        loaders: [
+          {
+            loader: 'file-loader',
+          },
         ],
       },
     ]

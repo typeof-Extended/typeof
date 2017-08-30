@@ -38,12 +38,11 @@ describe('Home page route integration', () => {
 
 describe('Serve up challenge strings', () => {
   describe('/getstring', () => {
-    describe('POST', () => {
+    describe('GET', () => {
 
       it('Responds with 200 and \'application/json\' content type', (done) => {
         request(HOST)
-          .post('/getstring')
-          .send({level: 1})
+          .get('/getstring')
           .end((err, res) => {
             if (err) done(err);
             assert(res.status === 200, `Expect 200, instead got ${res.status}`);
@@ -52,31 +51,13 @@ describe('Serve up challenge strings', () => {
           });
       });
 
-      it('Should take an object in request body, and return an two dimensional array', (done) => {
+      it('Responds with an two dimensional array', (done) => {
         request(HOST)
-          .post('/getstring')
-          .send({level: 1})
+          .get('/getstring')
           .end((err, res) => {
             if (err) done(err);
             assert(Array.isArray(res.body) === true, `Expect to return an array, instead got ${typeof res.body}`);
             assert(Array.isArray(res.body[0]) === true, `Expect the returned array to be a two dimensional array.`)
-            done();
-          });
-      });
-
-      it('Responds string in the correct level', (done) => {
-        request(HOST)
-          .post('/getstring')
-          .send({level: 2})
-          .end((err, res) => {
-            if (err) done(err);
-            let elCheck = false
-            for (let x = 0; x < res.body.length; x++) {
-              if (res.body[x][0] === 'function myFunction(p1, p2) { return p1 * p2; }') {
-                elCheck = true;
-              }
-            }
-            assert(elCheck === true, 'Expect proper stringproblem level response');
             done();
           });
       });
@@ -117,6 +98,75 @@ describe('Sign in integration', () => {
           });
       });
   
+    });
+  });
+});
+
+describe('Sign in integration', () => {
+  describe('/createuser', () => {
+    describe('POST', () => {
+      
+      it('Should create new user', (done) => {
+        request(HOST)
+          .post('/createuser')
+          .send({
+            username: 'CoolKris',
+            password: 'KrisIsCool',
+            email: 'kris@haha.com'
+          })
+          .end((err, res) => {
+            if (err) done(err);
+            assert(res.header['content-type'] === 'application/json; charset=utf-8', `Expect application/json; charset=utf-8 instead got ${res.header['content-type']}`);
+            assert(res.status === 200, `Expect 200, instead got ${res.status}`);
+            assert(res.body[0].hasOwnProperty('username'), 'Expect username inside res.body[0]');
+            assert(res.body[0].hasOwnProperty('password'), 'Expect password inside res.body[0]');
+            assert(res.body[0].hasOwnProperty('email'), 'Expect email inside res.body[0]');
+            done();
+          });
+      });
+
+    });
+    after((done) => {
+      request(HOST)
+        .delete('/deleteuser')
+        .send({
+          username: 'CoolKris'
+        })
+        .end((err, res) => {
+          if (err) done(err);
+          done();
+        });
+    });
+  });
+});
+
+describe('Delete user', () => {
+  before((done) => {
+    request(HOST)
+    .post('/createuser')
+    .send({
+      username: 'CoolKris',
+      password: 'KrisIsCool',
+      email: 'kris@haha.com'
+    })
+    .end((err, res) => {
+      if (err) done(err);
+      done();
+    });
+  });
+  describe('/deleteuser', () => {
+    describe('DELETE', () => {
+      request(HOST)
+        .delete('/deleteuser')
+        .send({
+          username: 'CoolKris'
+        })
+        .end((err, res) => {
+          if (err) done(err);
+          assert(res.status === 200, `Expect 200, instead got ${res.status}`);
+          assert(res.body.length === 0, 'Expect to delete user in the dataabase');
+          done();
+        });
     });
   });
 });
