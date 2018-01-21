@@ -1,5 +1,5 @@
 const pg = require('pg');
-const conString = 'postgres://tjurqsrm:a3EMg4RiFXhLDz5mYScVBDvWlhKP-Ok7@babar.elephantsql.com:5432/tjurqsrm';
+
 
 const client = new pg.Client(conString);
 
